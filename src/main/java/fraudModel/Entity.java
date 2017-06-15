@@ -7,13 +7,13 @@ import java.util.Map;
  */
 public class Entity {
 
-    private Map<String,Object> fields;
+    private Map<String, Object> fields;
     private EntityType type;
 
     public Entity(Map<String, Object> fields, EntityType type) {
 
-        this.fields=fields;
-        this.type=type;
+        this.fields = fields;
+        this.type = type;
     }
 
     public Map<String, Object> getFields() {

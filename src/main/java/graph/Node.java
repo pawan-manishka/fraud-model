@@ -27,11 +27,4 @@ public class Node {
         return entity;
     }
 
-
-    public void addNode() {
-    }
 }
-
-//private int x;
-//private int y;
-//private int size;

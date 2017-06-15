@@ -13,10 +13,6 @@ public class EntityContainer {
     private Map<String,Entity> entityList;
     private List<EntityType> entityTypeList;
 
-    public List<EntityType> getEntityTypeList() {
-        return entityTypeList;
-    }
-
     public EntityContainer() {
         this.entityList =  new HashMap<String, Entity>();
         this.entityTypeList = new ArrayList<EntityType>();
@@ -30,12 +26,16 @@ public class EntityContainer {
         this.entityList = entityList;
     }
 
-    public void addEntityType(EntityType entityType){
-        entityTypeList.add(entityType);
+    public List<EntityType> getEntityTypeList() {
+        return entityTypeList;
     }
 
     public void addEntity(String primaryKey, Entity entity){
         entityList.put(primaryKey,entity);
+    }
+
+    public void addEntityType(EntityType entityType){
+        entityTypeList.add(entityType);
     }
 
     public void removeEntity(){}
