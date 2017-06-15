@@ -72,7 +72,7 @@ public class Graph {
             }
         }
         System.out.println(edges.size());
-        System.out.print("Created Edges : " + edges);
+        System.out.println("Created Edges : " + edges);
     }
 
     public void addEdge() {
