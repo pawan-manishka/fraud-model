@@ -1,6 +1,7 @@
 package fraudModel;
 
 import graph.Graph;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -134,11 +135,15 @@ public class RealModel {
         ec.addEntity("T2", trans2);
         ec.addEntity("B2", branch2);
 
-        Graph graph = new Graph(ec.getEntityList(),ec.getEntityTypeList());
+        Graph graph = new Graph(ec.getEntityList());
         graph.createNodes();
-       // graph.createEdges(graph.getNodes());
-        graph.createEdges1();
-       // graph.getSameTypeEntities();
+        graph.createEdges();
+
+        JSONObject nodes = new JSONObject(graph.getNodes());
+        System.out.println("JsonNodes : "+nodes);
+        JSONObject edges = new JSONObject(graph.getEdges());
+        System.out.println("JsonEdges : "+edges);
+
     }
 
     public static void main(String[] args) {
@@ -146,8 +151,9 @@ public class RealModel {
         rm.model();
     }
 
+    public void jsonCreater(){
 
-    public void jsonCreater(){}
+    }
 
     public void entityCreater() {}
 

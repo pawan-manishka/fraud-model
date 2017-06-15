@@ -12,7 +12,6 @@ public class Edge {
     private String targetNode;
     private String relationshipLabel;
 
-
     public Edge(String source, String target) {
         this.sourceNode=source;
         this.targetNode=target;
