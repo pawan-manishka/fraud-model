@@ -1,7 +1,9 @@
 package graph;
 
 import fraudModel.Entity;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,6 +14,26 @@ public class Graph {
     private Map<String, Node> nodes;
     private Map<String, Edge> edges;
     private Map<String, Entity> entityList;
+
+    private List<Node> nodeList;
+    private List<Edge> edgeList;
+
+    public List<Node> getNodeList() {
+        return nodeList;
+    }
+
+    public List<Edge> getEdgeList() {
+        return edgeList;
+    }
+
+    public Graph(Map<String, Entity> entityList) {
+
+        this.nodes = new HashMap<String, Node>();
+        this.edges = new HashMap<String, Edge>();
+        this.entityList = entityList;
+        this.nodeList= new ArrayList<Node>();
+        this.edgeList= new ArrayList<Edge>();
+    }
 
     public Map<String, Node> getNodes() {
         return nodes;
@@ -25,11 +47,6 @@ public class Graph {
         return entityList;
     }
 
-    public Graph(Map<String, Entity> entityList) {
-        this.nodes = new HashMap<String, Node>();
-        this.edges = new HashMap<String, Edge>();
-        this.entityList = entityList;
-    }
 
     /* This is to create the nodes of the graph
      */
@@ -37,6 +54,7 @@ public class Graph {
         for (Map.Entry<String, Entity> entry : entityList.entrySet()) {
             Node node = new Node(entry.getKey(), entry.getValue());
             nodes.put(entry.getKey(), node);
+            nodeList.add(node);
         }
         System.out.println("CreatedNodes :" + nodes);
         return nodes;
@@ -59,13 +77,13 @@ public class Graph {
                     for (Map.Entry<String, Object> entry1 : obj.entrySet()) {
                         if (fk == entry1.getKey()) { // check there is a PK that match with fk
                             System.out.println("Foreign key : " + entry1.getKey() + " Value : " + entry1.getValue());
-                            Edge edge = new Edge(sourceNode, entry1.getValue().toString());
                             String edgeId = sourceNode + entry1.getValue();
+                            Edge edge = new Edge(edgeId, sourceNode, entry1.getValue().toString());
                             System.out.println("EdgeID : " + edgeId);
                             edges.put(edgeId, edge);
+                            edgeList.add(edge);
                         }
                     }
-
                 } else {
                     //System.out.println("This is not a FK : ");
                 }
@@ -75,17 +93,13 @@ public class Graph {
         System.out.println("Created Edges : " + edges);
     }
 
-    public void addEdge() {
-    }
+    public void addEdge() {}
 
-    public void removeNode() {
-    }
+    public void removeNode() {}
 
-    public void removeEdge() {
-    }
+    public void removeEdge() {}
 
 }
-
 
 
 

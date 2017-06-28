@@ -1,8 +1,10 @@
 package fraudModel;
 
+import com.google.gson.Gson;
 import graph.Graph;
-import org.json.JSONObject;
-
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +14,7 @@ import java.util.Map;
  */
 public class RealModel {
 
-    public void model() {
+    public void model() throws IOException {
         /**** defining the Fields ****/
         /* Transaction Fields */
         Field transaction_id = new Field("String", "transaction_id", null, null, null, true);  // primary key of Transaction fraudModel.Entity
@@ -71,6 +73,8 @@ public class RealModel {
         /**** adding Sample data ****/
         Map<String, Object> trans1Fields = new HashMap<String, Object>();
         Map<String, Object> trans2Fields = new HashMap<String, Object>();
+        Map<String, Object> trans3Fields = new HashMap<String, Object>();
+
         Map<String, Object> account1Fields = new HashMap<String, Object>();
         Map<String, Object> account2Fields = new HashMap<String, Object>();
         Map<String, Object> person1Fields = new HashMap<String, Object>();
@@ -86,6 +90,11 @@ public class RealModel {
         trans2Fields.put("transaction_type", "cash");
         trans2Fields.put("amount", 800);
         trans2Fields.put("account_id", "A2");
+
+        trans3Fields.put("transaction_id", "T3");
+        trans3Fields.put("transaction_type", "cash");
+        trans3Fields.put("amount", 1000);
+        trans3Fields.put("account_id", "A1");
 
         account1Fields.put("account_id", "A1");
         account1Fields.put("name", "PM Gunaratne");
@@ -118,10 +127,11 @@ public class RealModel {
         Entity branch1 = new Entity(branch1Fields, branch);
         Entity trans1 = new Entity(trans1Fields, transaction);
         Entity trans2 = new Entity(trans2Fields, transaction);
+        Entity trans3 = new Entity(trans3Fields, transaction);
         Entity branch2 = new Entity(branch1Fields, branch);
+
         // adding Entities to Entity Container
         EntityContainer ec = new EntityContainer();
-
         ec.addEntityType(person);
         ec.addEntityType(account);
         ec.addEntityType(branch);
@@ -133,28 +143,33 @@ public class RealModel {
         ec.addEntity("B1", branch1);
         ec.addEntity("T1", trans1);
         ec.addEntity("T2", trans2);
+        ec.addEntity("T3", trans3);
         ec.addEntity("B2", branch2);
 
         Graph graph = new Graph(ec.getEntityList());
         graph.createNodes();
         graph.createEdges();
 
-        JSONObject nodes = new JSONObject(graph.getNodes());
-        System.out.println("JsonNodes : "+nodes);
-        JSONObject edges = new JSONObject(graph.getEdges());
-        System.out.println("JsonEdges : "+edges);
+        // Graph JSON creation
+        String jsonNodes = new Gson().toJson(graph.getNodeList());
+        System.out.println("\nnodes : "+jsonNodes);
+        String jsonEdges = new Gson().toJson(graph.getEdgeList());
+        System.out.println("edges : "+jsonEdges);
 
+        Writer writer = new FileWriter("Output.json");
+        writer.write("{\"nodes\": "+jsonNodes+",\"edges\": "+jsonEdges+"}");
+        writer.flush();
+        writer.close();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         RealModel rm = new RealModel();
         rm.model();
     }
 
-    public void jsonCreater(){
-
-    }
+    public void jsonCreater(){}
 
     public void entityCreater() {}
 
 }
+

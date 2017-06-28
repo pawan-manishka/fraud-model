@@ -7,36 +7,29 @@ import fraudModel.Field;
  */
 public class Edge {
 
-    private String edgeId;
-    private String sourceNode;
-    private String targetNode;
-    private String relationshipLabel;
+    private String id;
+    private String source;  // sourceNode
+    private String target;  // targetNode
+    // private String relationshipLabel;
 
-    public Edge(String source, String target) {
-        this.sourceNode=source;
-        this.targetNode=target;
-    }
-
-    public Edge(Field field) {
+    public Edge(String edgeId, String source, String target) {
+        this.id = edgeId;
+        this.source = source;
+        this.target = target;
     }
 
     public Edge(Field field, String name, String foreignEntityTypeName) {
     }
 
     public String getEdgeId() {
-        return edgeId;
+        return id;
     }
 
     public String getSourceNode() {
-        return sourceNode;
+        return source;
     }
 
     public String getTargetNode() {
-        return targetNode;
+        return target;
     }
-
-    public String getRelationshipLabel() {
-        return relationshipLabel;
-    }
-
 }
